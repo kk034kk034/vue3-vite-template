@@ -71,3 +71,15 @@ npm run build
 ```sh
 npm run lint
 ```
+
+### Prettier `src/`
+
+```sh
+npm run format
+```
+
+### Type check
+
+```sh
+npm run typecheck
+```

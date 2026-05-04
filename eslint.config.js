@@ -1,11 +1,12 @@
 import js from '@eslint/js'
 import pluginVue from 'eslint-plugin-vue'
+import tseslint from 'typescript-eslint'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 
 export default [
   {
     name: 'app/files-to-lint',
-    files: ['**/*.{js,mjs,jsx,vue}'],
+    files: ['**/*.{js,mjs,jsx,ts,tsx,vue}'],
   },
 
   {
@@ -14,6 +15,7 @@ export default [
   },
 
   js.configs.recommended,
+  ...tseslint.configs.recommended,
   ...pluginVue.configs['flat/essential'],
   skipFormatting,
 ]
