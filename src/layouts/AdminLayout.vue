@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue'
-import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
 import { Bell, LogOut, Search, Settings } from 'lucide-vue-next'
 import { appRoutes } from '@/routes/appRoutes'
 import { useAppI18n } from '@/shared/i18n'
 import { useSessionStore } from '@/shared/stores/session'
 
 const route = useRoute()
+const router = useRouter()
 const session = useSessionStore()
 const { locale, localeOptions, t } = useAppI18n()
+
+function logout() {
+  session.clearSession()
+  router.push('/login')
+}
 
 const visibleRoutes = computed(() => {
   return appRoutes.filter((item) => {
@@ -75,7 +81,7 @@ watch(
           <button class="icon-button" type="button" :title="t('app.settings')">
             <Settings :size="17" />
           </button>
-          <button class="user-button" type="button">
+          <button class="user-button" type="button" @click="logout">
             <span>{{ session.user.name }}</span>
             <LogOut :size="15" />
           </button>

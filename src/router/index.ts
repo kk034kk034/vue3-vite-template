@@ -9,6 +9,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/features/auth/LoginView.vue'),
+      meta: { public: true },
+    },
+    {
       path: '/',
       component: AdminLayout,
       redirect: '/dashboard',
@@ -23,6 +29,17 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const session = useSessionStore()
+
+  // 未登入且不是 public 頁面 → 導到 login
+  if (!session.isLoggedIn && !to.meta?.public) {
+    return { name: 'login' }
+  }
+
+  // 已登入訪問 login → 導到 dashboard
+  if (session.isLoggedIn && to.name === 'login') {
+    return { name: 'dashboard' }
+  }
+
   const roles = to.meta?.roles
   const permissions = to.meta?.permissions
   const hasRole = !roles?.length || roles.some((role) => session.roles.includes(role))
