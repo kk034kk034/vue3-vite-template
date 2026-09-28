@@ -8,5 +8,7 @@ declare module 'vue-router' {
     icon?: string
     roles?: AppRole[]
     permissions?: string[]
+    /** 不需登入即可進入，給市民服務入口與登入頁使用。 */
+    public?: boolean
   }
 }
