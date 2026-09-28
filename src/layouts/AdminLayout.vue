@@ -50,6 +50,7 @@ watch(
           <span>{{ t(item.meta?.titleKey || '') }}</span>
         </RouterLink>
       </nav>
+      <RouterLink class="nav-item" to="/services">市民服務示範</RouterLink>
     </aside>
 
     <div class="workspace">
